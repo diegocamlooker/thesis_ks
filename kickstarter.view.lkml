@@ -107,5 +107,11 @@ view: kickstarter {
     sql: ${backers} ;;
   }
 
+  measure: sum_usd_pledged_real {
+    type: sum
+    value_format_name: usd_0
+    sql: ${usd_pledged_real} ;;
+  }
+
 
 }
