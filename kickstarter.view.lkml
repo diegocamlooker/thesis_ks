@@ -101,4 +101,11 @@ view: kickstarter {
     type: count
     drill_fields: [id, name]
   }
+
+  measure: sum_backers {
+    type: sum
+    sql: ${backers} ;;
+  }
+
+
 }

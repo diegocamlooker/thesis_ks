@@ -37,7 +37,7 @@ explore: kickstarter {
 
   explore: kickstarter_boardgames {
     from: kickstarter
-    sql_always_where: ${category} IN ("Tabletop");;
+    sql_always_where: ${category} IN ("Tabletop Games");;
     label: "KS boardgames"
     group_label: "Diego thesis"
     view_label: "Kickstarter Boardgames"
