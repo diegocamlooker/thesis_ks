@@ -100,7 +100,7 @@ view: kickstarter {
 
   dimension: days_campaign {
     type: number
-    sql: DATE_DIFF(${launched_raw}, ${deadline_raw},day) ;;
+    sql: DATE_DIFF(${deadline_date},${launched_date},day) ;;
   }
 
   measure: count {
@@ -121,6 +121,7 @@ view: kickstarter {
 
   measure: average_days_campaign {
     type: average
+    value_format_name: decimal_2
     sql: ${days_campaign} ;;
 
 

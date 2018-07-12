@@ -42,3 +42,15 @@ explore: kickstarter {
     group_label: "Diego thesis"
     view_label: "Kickstarter Boardgames"
     }
+
+
+# define join
+# explore: kickstarter_bgg {
+#   from: kickstarter
+#   join: games {
+# #     fields: []
+#     type: left_outer
+#     sql_on: ${kickstarter_bgg.name} = ${kickstarter_bgg.name} ;;
+#     relationship: one_to_one
+#   }
+# }
