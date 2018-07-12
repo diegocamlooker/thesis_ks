@@ -97,6 +97,12 @@ view: kickstarter {
     sql: ${TABLE}.usd_pledged_real ;;
   }
 
+
+  dimension: days_campaign {
+    type: number
+    sql: DATEDIFF( day, ${launched_date}, ${deadline_date}) ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, name]
