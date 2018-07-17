@@ -105,4 +105,9 @@ view: bgg {
     type: count
     drill_fields: []
   }
+
+
+set: detail {
+  fields: [rank,weight,year,owned,image_url,geek_rating,names]
+}
 }

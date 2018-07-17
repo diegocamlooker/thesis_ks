@@ -282,4 +282,9 @@ view: collection {
     type: count
     drill_fields: [originalname, objectname, version_nickname]
   }
+
+  set: detail {
+    fields: [numplays,rating,own,wishlist]
+  }
+
 }

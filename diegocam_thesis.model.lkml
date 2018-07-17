@@ -37,20 +37,29 @@ explore: kickstarter {
 
   explore: kickstarter_boardgames {
     from: kickstarter
+    hidden: no
     sql_always_where: ${category} IN ("Tabletop Games");;
+    description: "Only Boardgames projects in KS"
     label: "KS boardgames"
     group_label: "Diego thesis"
-    view_label: "Kickstarter Boardgames"
+    view_label: "Kickstarter - Boardgames"
     }
 
 
-# define join
-# explore: kickstarter_bgg {
-#   from: kickstarter
-#   join: games {
-# #     fields: []
-#     type: left_outer
-#     sql_on: ${kickstarter_bgg.name} = ${kickstarter_bgg.name} ;;
-#     relationship: one_to_one
-#   }
-# }
+explore: boardgames_all {
+  from: kickstarter
+  join: bgg {
+    from: bgg
+    fields: [bgg.detail*]
+    type: left_outer
+    sql_on: ${boardgames_all.name}=${bgg.names} ;;
+    relationship: one_to_one
+  }
+  join: collection {
+    from:  collection
+    fields: [collection.detail*]
+    type: left_outer
+    sql_on: ${bgg.names}=${collection.originalname}  ;;
+    relationship: one_to_one
+  }
+}

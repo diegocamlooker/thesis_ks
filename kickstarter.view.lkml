@@ -103,6 +103,16 @@ view: kickstarter {
     sql: DATE_DIFF(${deadline_date},${launched_date},day) ;;
   }
 
+  dimension: usd_goal_real_tier {
+    type: tier
+    tiers: [1000, 5000,10000,50000,100000,500000]
+    value_format_name: usd
+    style:classic
+    sql: ${goal} ;;
+  }
+
+
+
   measure: count {
     type: count
     drill_fields: [id, name]
