@@ -75,6 +75,7 @@ view: collection {
   dimension: imageid {
     type: string
     sql: ${TABLE}.imageid ;;
+    html: <img src="{{value}}" /> ;;
   }
 
   dimension: invdate {
@@ -283,8 +284,19 @@ view: collection {
     drill_fields: [originalname, objectname, version_nickname]
   }
 
+  measure: sum_plays {
+    type: sum
+    sql: ${numplays} ;;
+    drill_fields: [originalname]
+
+  }  measure: sum_own {
+    type: sum
+    sql: ${own} ;;
+    drill_fields: [originalname]
+  }
+
   set: detail {
-    fields: [numplays,rating,own,wishlist]
+    fields: [numplays,rating,own,wishlist,originalname,imageid]
   }
 
 }

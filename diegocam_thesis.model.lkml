@@ -47,6 +47,10 @@ explore: kickstarter {
 
 
 explore: boardgames_all {
+  description: "All tables joined"
+  view_label: "KS"
+  group_label: "Diego thesis"
+  hidden: no
   from: kickstarter
   join: bgg {
     from: bgg
