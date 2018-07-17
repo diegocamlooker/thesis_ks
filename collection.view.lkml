@@ -72,10 +72,9 @@ view: collection {
     sql: ${TABLE}.haspartslist ;;
   }
 
-  dimension: imageid {
+  dimension: imageid_link {
     type: string
     sql: ${TABLE}.imageid ;;
-    html: <img src="{{value}}" /> ;;
   }
 
   dimension: invdate {
@@ -157,6 +156,21 @@ view: collection {
   dimension: own {
     type: number
     sql: ${TABLE}.own ;;
+  }
+
+  dimension: own_yesno {
+    type: string
+    sql: CASE
+                   WHEN ${TABLE}.own = 1 THEN 'yes'
+                  else 'no'
+            END ;;
+
+     html:
+    {% if value == 'yes' %}
+      <p style="color: black; background-color: lightgreen; font-size:100%; text-align:center">{{ rendered_value }}</p>
+    {% else %}
+      <p style="color: black; background-color:red; font-size:100%; text-align:center">{{ rendered_value }}</p>
+    {% endif %};;
   }
 
   dimension: playingtime {
@@ -296,7 +310,7 @@ view: collection {
   }
 
   set: detail {
-    fields: [numplays,rating,own,wishlist,originalname,imageid]
+    fields: [numplays,rating,own,wishlist,originalname,own_yesno]
   }
 
 }

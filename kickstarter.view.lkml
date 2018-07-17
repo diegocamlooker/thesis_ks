@@ -111,8 +111,6 @@ view: kickstarter {
     sql: ${goal} ;;
   }
 
-
-
   measure: count {
     type: count
     drill_fields: [id, name]
