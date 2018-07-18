@@ -84,19 +84,36 @@ view: kickstarter {
 
   dimension: usd_goal_real {
     type: number
+    value_format: "0.##"
     sql: ${TABLE}.usd_goal_real ;;
   }
 
   dimension: usd_pledged {
     type: number
+    value_format: "0.##"
     sql: ${TABLE}.usd_pledged ;;
   }
 
+
+
   dimension: usd_pledged_real {
     type: number
+    value_format: "0.##"
     sql: ${TABLE}.usd_pledged_real ;;
   }
 
+  dimension: eur_pledge_real
+  {
+    type: number
+    value_format: "0.##"
+    sql: 1.09 * ${usd_pledged_real};;
+  }
+
+  dimension: goal_vs_pledged {
+    type: number
+    value_format: "0.##"
+    sql: (${usd_pledged_real} - ${usd_goal_real})/ (${usd_goal_real}*1.0) ;;
+  }
 
   dimension: days_campaign {
     type: number
@@ -126,6 +143,7 @@ view: kickstarter {
     value_format_name: usd_0
     sql: ${usd_pledged_real} ;;
   }
+
 
   measure: average_days_campaign {
     type: average

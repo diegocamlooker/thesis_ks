@@ -122,7 +122,7 @@ view: bgg {
 
   measure: count {
     type: count
-    drill_fields: [names]
+    drill_fields: [rank,names]
   }
 
 
