@@ -20,6 +20,7 @@ view: kickstarter {
   dimension: country {
     type: string
     map_layer_name: countries
+    drill_fields: [name,launched_year]
     sql: ${TABLE}.country ;;
   }
 
