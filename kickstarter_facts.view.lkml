@@ -3,6 +3,7 @@ view: kickstarter_facts {
     sql: SELECT MAX(usd_pledged_real) ,MIN(usd_pledged_real) FROM `lookerdata.diegocam_thesis.kickstarter`
       WHERE category IN ("Tabletop Games") and state IN ("successful")
        ;;
+      persist_for: "24 hours"
   }
 
   dimension: max_pledge {
