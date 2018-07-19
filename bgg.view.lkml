@@ -47,6 +47,30 @@ view: bgg {
     sql: ${TABLE}.geek_rating ;;
   }
 
+  dimension: geek_acceptance {
+    case: {
+      when: {
+        sql: ${geek_rating} <= 5;;
+        label: "F"
+      }
+      when: {
+        sql: ${geek_rating} > 5 AND ${geek_rating} <= 6;;
+        label: "D"
+      }      when: {
+        sql: ${geek_rating} > 6 AND ${geek_rating} <= 7;;
+        label: "C"
+      }      when: {
+        sql:${geek_rating} > 7 AND ${geek_rating} <= 8;;
+        label: "B"
+      }      when: {
+        sql:${geek_rating} > 8;;
+        label: "A"
+      }
+      else:"Unknown"
+    }
+  }
+
+
   dimension: image_url {
     type: string
     sql: ${TABLE}.image_url ;;
@@ -125,8 +149,29 @@ view: bgg {
     drill_fields: [rank,names]
   }
 
+  measure: average_geek_rating {
+    type: average
+    sql: ${geek_rating};;
+    value_format_name: decimal_2
+    drill_fields: [rank,names]
+  }
+
+  measure: average_num_votes {
+    type: average
+    sql: ${num_votes};;
+    value_format_name: decimal_2
+    drill_fields: [rank,names]
+  }
+
+  measure: average_owned {
+    type: average
+    sql: ${owned} ;;
+    value_format_name: decimal_2
+    drill_fields: [rank,names]
+  }
+
 
 set: detail {
-  fields: [rank,rank_tier,weight,year,owned,image_url,geek_rating,names,image_url,image,bgg_url,bgg_url,count]
+  fields: [average_geek_rating,rank,rank_tier,weight,year,owned,image_url,geek_rating,names,image_url,image,bgg_url,bgg_url,count]
 }
 }
