@@ -38,7 +38,7 @@ explore: kickstarter {
 explore: kickstarter_boardgames {
   from: kickstarter
   hidden: no
-  sql_always_where: ${category} IN ("Tabletop Games") and ${state} IN ("successful","failed");;
+  sql_always_where: ${category} IN ("Tabletop Games") and ${state} IN ("successful","failed") and ${launched_month} NOT IN ("2018-01","2017-12");;
   description: "Only Boardgames projects in KS"
   label: "KS boardgames"
   group_label: "Diego thesis"

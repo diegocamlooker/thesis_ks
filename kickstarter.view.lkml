@@ -213,6 +213,7 @@ view: kickstarter {
 ## filter determining time range for all "A" measures
 
   filter: timeframe_a {
+    label: "Time Comparison"
     type: date_time
   }
 
@@ -220,6 +221,7 @@ view: kickstarter {
 
   dimension: group_a_yesno {
     hidden: yes
+    label: "Time Comparison"
     type: yesno
     sql: {% condition timeframe_a %} ${launched_raw} {% endcondition %} ;;
   }
@@ -228,6 +230,7 @@ view: kickstarter {
 
   measure: count_a {
     type: count
+    group_label: "Time Comparison"
     filters: {
       field: group_a_yesno
       value: "yes"
@@ -245,12 +248,14 @@ view: kickstarter {
 
   dimension: group_b_yesno {
     hidden: yes
+    group_label:  "Time Comparison"
     type: yesno
     sql: {% condition timeframe_b %} ${launched_raw} {% endcondition %} ;;
   }
 
   measure: count_b {
     type: count
+    group_label: "Time Comparison"
     filters: {
       field: group_b_yesno
       value: "yes"
@@ -262,12 +267,14 @@ view: kickstarter {
 
   filter: timeframe_c {
     type: date_time
+
   }
 
 ## flag for "C" measures to only include appropriate time range
 
   dimension: group_c_yesno {
     hidden: yes
+    group_label: "Time Comparison"
     type: yesno
     sql: {% condition timeframe_a %} ${launched_raw} {% endcondition %} ;;
   }
@@ -276,6 +283,7 @@ view: kickstarter {
 
   measure: count_c {
     type: count
+    group_label: "Time Comparison"
     filters: {
       field: group_a_yesno
       value: "yes"
@@ -293,6 +301,7 @@ view: kickstarter {
 
   dimension: group_d_yesno {
     hidden: yes
+    group_label: "Time Comparison"
     type: yesno
     sql: {% condition timeframe_a %} ${launched_raw} {% endcondition %} ;;
   }
@@ -301,6 +310,7 @@ view: kickstarter {
 
   measure: count_d {
     type: count
+    group_label: "Time Comparison"
     filters: {
       field: group_a_yesno
       value: "yes"
@@ -310,8 +320,9 @@ view: kickstarter {
 
 
   dimension: is_in_time_a_or_b_or_c_or_d {
-    group_label: "Time Comparison Filters"
+    group_label: "Time Comparison"
     type: yesno
+
     sql:
     {% condition timeframe_a %} ${launched_raw} {% endcondition %} OR
     {% condition timeframe_b %} ${launched_raw} {% endcondition %} OR
