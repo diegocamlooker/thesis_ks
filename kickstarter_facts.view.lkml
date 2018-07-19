@@ -4,6 +4,7 @@ view: kickstarter_facts {
       -- running the following sql through the bigquery API to create table as select:
       -- Building diegocam_thesis::kickstarter_facts in dev mode on instance 353ba745759ae06280e04aa875a6da88
       SELECT kickstarter.launched,
+          MAX(bgg.rank) as max_rank,
           MAX(kickstarter.usd_pledged_real) as max_pledge,
           MIN(kickstarter.usd_pledged_real) as min_pledge,
           MAX(bgg.geek_rating) as best_game_rating,
@@ -23,6 +24,11 @@ view: kickstarter_facts {
   dimension_group: launched {
     type: time
     sql: ${TABLE}.launched ;;
+  }
+
+  dimension: max_rank {
+    type: number
+    sql: ${TABLE}.max_rank ;;
   }
 
   dimension: max_pledge {
@@ -46,6 +52,13 @@ view: kickstarter_facts {
   }
 
   set: detail {
-    fields: [launched_time, max_pledge, min_pledge, best_game_rating, worst_game_rating]
+    fields: [
+      launched_time,
+      max_rank,
+      max_pledge,
+      min_pledge,
+      best_game_rating,
+      worst_game_rating
+    ]
   }
 }

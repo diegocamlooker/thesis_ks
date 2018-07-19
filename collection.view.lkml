@@ -310,7 +310,7 @@ view: collection {
   }
 
   set: detail {
-    fields: [numplays,rating,own,wishlist,originalname,own_yesno]
+    fields: [numplays,rating,own,wishlist,originalname,own_yesno,count,sum_plays,sum_own]
   }
 
 }

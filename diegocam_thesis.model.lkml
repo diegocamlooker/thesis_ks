@@ -33,33 +33,33 @@ explore: kickstarter {
   label: "KS"
   group_label: "Diego thesis"
   view_label: "Kickstarter"
-  }
+}
 
-  explore: kickstarter_boardgames {
-    from: kickstarter
-    hidden: no
-    sql_always_where: ${category} IN ("Tabletop Games") and ${state} IN ("successful","failed");;
-    description: "Only Boardgames projects in KS"
-    label: "KS boardgames"
-    group_label: "Diego thesis"
-    view_label: "Kickstarter - Boardgames"
-    }
-
-explore: kickstarter_prediction {
+explore: kickstarter_boardgames {
   from: kickstarter
   hidden: no
   sql_always_where: ${category} IN ("Tabletop Games") and ${state} IN ("successful","failed");;
-  description: "To help predicting FUTURE!"
-  label: "KS boardgames - Prediction "
+  description: "Only Boardgames projects in KS"
+  label: "KS boardgames"
   group_label: "Diego thesis"
-  view_label: "Kickstarter - Boardgames - Prediction model"
-  join: mr_dates {
-    from: mr_dates
-    sql_on:${mr_dates.date_future_date}=${kickstarter_prediction.launched_date}  ;;
-    type: full_outer
-    relationship: many_to_many
-  }
+  view_label: "Kickstarter - Boardgames"
 }
+
+# explore: kickstarter_prediction {
+#   from: kickstarter
+#   hidden: no
+#   sql_always_where: ${category} IN ("Tabletop Games") and ${state} IN ("successful","failed");;
+#   description: "To help predicting FUTURE!"
+#   label: "KS boardgames - Prediction "
+#   group_label: "Diego thesis"
+#   view_label: "Kickstarter - Boardgames - Prediction model"
+#   join: mr_dates {
+#     from: mr_dates
+#     sql_on:${mr_dates.date_future_date}=${kickstarter_prediction.launched_date}  ;;
+#     type: full_outer
+#     relationship: many_to_many
+#   }
+# }
 
 explore: kickstarter_facts {
   hidden: no
@@ -69,12 +69,10 @@ explore: kickstarter_facts {
   view_label: "Kickstarter - Facts"
 }
 
-explore: mr_dates {
-  hidden: no
+# explore: mr_dates {
+#   hidden: no
 
-}
-
-
+# }
 
 explore: boardgames_all {
   description: "All tables joined"
