@@ -10,7 +10,7 @@ I am an enthusiast of tabletop games and, at this point of time, KS is one (if n
 In general, I want this project to be reflective of the crowdfunding backer experience from top to bottom, from the early days of a project until it gets in the backers hands. I want to  focus on the table top gaming category, the biggest in this platform and my favourite. Some of the questions I’d like to address are:
 
 - Which is the percentage of successful projects in the platform?
--What makes a project successful?
+- What makes a project successful?
 - Is actually board games the biggest there?
 - How many campaign days are enough to meet the objectives?
 - Is there a positive correlation between high ranked games and KS, just due to hype?
