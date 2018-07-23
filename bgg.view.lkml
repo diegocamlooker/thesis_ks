@@ -172,6 +172,6 @@ view: bgg {
 
 
 set: detail {
-  fields: [average_geek_rating,rank,rank_tier,weight,year,owned,image_url,geek_rating,names,image_url,image,bgg_url,bgg_url,count,geek_acceptance]
+  fields: [category,average_geek_rating,rank,rank_tier,weight,year,owned,image_url,geek_rating,names,image_url,image,bgg_url,bgg_url,count,geek_acceptance]
 }
 }

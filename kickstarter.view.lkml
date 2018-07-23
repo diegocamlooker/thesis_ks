@@ -131,36 +131,54 @@ view: kickstarter {
 
   measure: count {
     type: count
-    drill_fields: [id, name]
+    drill_fields: [id, name,usd_pledged_real]
+  }
+
+  measure: count_project {
+    type: count_distinct
+    sql: ${name} ;;
+    drill_fields: [id, name,backers,usd_pledged_real]
   }
 
   measure: sum_backers {
     type: sum
     sql: ${backers} ;;
+    drill_fields: [id, name,backers,usd_pledged_real]
   }
 
   measure: average_backers {
     type: average
     value_format_name: decimal_0
     sql: ${backers} ;;
+    drill_fields: [id, name,backers,usd_pledged_real]
   }
 
   measure: average_funding_goal {
     type: average
     value_format_name: usd
     sql: ${usd_goal_real} ;;
+    drill_fields: [id, name,backers,usd_pledged_real]
   }
 
   measure: average_pledged {
     type: average
     value_format_name: usd
     sql: ${usd_pledged_real} ;;
+    drill_fields: [id, name,backers,usd_pledged_real]
+  }
+
+  measure: sum_usd_pledged {
+    type: sum
+    value_format_name: usd_0
+    sql: ${usd_pledged} ;;
+    drill_fields: [id, name,backers,usd_pledged_real]
   }
 
   measure: sum_usd_pledged_real {
     type: sum
     value_format_name: usd_0
     sql: ${usd_pledged_real} ;;
+    drill_fields: [id, name,backers,usd_pledged_real]
   }
 
 
@@ -168,6 +186,7 @@ view: kickstarter {
     type: average
     value_format_name: decimal_2
     sql: ${days_campaign} ;;
+    drill_fields: [id, name,backers,usd_pledged_real]
     }
 
 #     overfunding dimensions only
@@ -190,6 +209,13 @@ view: kickstarter {
     style: integer
     sql:${overfunded_times};;
   }
+
+  measure:  overfunded_avg {
+    type: average
+    value_format_name: decimal_0
+    sql: ${overfunded_times};;
+    drill_fields: [id, name,usd_pledged_real]
+    }
 
 #     linear regression model based on prediction  - not needed!
 
@@ -238,6 +264,18 @@ view: kickstarter {
     drill_fields: [launched_date,name]
   }
 
+  measure: avg_over_a {
+    type: average
+    group_label: "Time Comparison"
+    filters: {
+      field: group_a_yesno
+      value: "yes"
+    }
+    sql: ${overfunded_times} ;;
+    value_format_name: decimal_1
+    drill_fields: [launched_date,name]
+  }
+
 ## filter determining time range for all "B" measures
 
   filter: timeframe_b {
@@ -263,6 +301,18 @@ view: kickstarter {
     drill_fields: [launched_date,name]
   }
 
+  measure: avg_over_b {
+    type: average
+    group_label: "Time Comparison"
+    filters: {
+      field: group_b_yesno
+      value: "yes"
+    }
+    sql: ${overfunded_times} ;;
+    value_format_name: decimal_1
+    drill_fields: [launched_date,name]
+  }
+
 ## filter determining time range for all "C" measures
 
   filter: timeframe_c {
@@ -276,7 +326,7 @@ view: kickstarter {
     hidden: yes
     group_label: "Time Comparison"
     type: yesno
-    sql: {% condition timeframe_a %} ${launched_raw} {% endcondition %} ;;
+    sql: {% condition timeframe_c %} ${launched_raw} {% endcondition %} ;;
   }
 
 ## filtered measure C
@@ -285,9 +335,21 @@ view: kickstarter {
     type: count
     group_label: "Time Comparison"
     filters: {
-      field: group_a_yesno
+      field: group_c_yesno
       value: "yes"
     }
+    drill_fields: [launched_date,name]
+  }
+
+  measure: avg_over_c {
+    type: average
+    group_label: "Time Comparison"
+    filters: {
+      field: group_c_yesno
+      value: "yes"
+    }
+    sql: ${overfunded_times} ;;
+    value_format_name: decimal_1
     drill_fields: [launched_date,name]
   }
 
@@ -303,7 +365,7 @@ view: kickstarter {
     hidden: yes
     group_label: "Time Comparison"
     type: yesno
-    sql: {% condition timeframe_a %} ${launched_raw} {% endcondition %} ;;
+    sql: {% condition timeframe_d %} ${launched_raw} {% endcondition %} ;;
   }
 
 ## filtered measure D
@@ -312,17 +374,27 @@ view: kickstarter {
     type: count
     group_label: "Time Comparison"
     filters: {
-      field: group_a_yesno
+      field: group_d_yesno
       value: "yes"
     }
     drill_fields: [launched_date,name]
   }
 
+  measure: avg_over_d {
+    type: average
+    group_label: "Time Comparison"
+    filters: {
+      field: group_d_yesno
+      value: "yes"
+    }
+    sql: ${overfunded_times} ;;
+    value_format_name: decimal_1
+    drill_fields: [launched_date,name]
+  }
 
   dimension: is_in_time_a_or_b_or_c_or_d {
     group_label: "Time Comparison"
     type: yesno
-
     sql:
     {% condition timeframe_a %} ${launched_raw} {% endcondition %} OR
     {% condition timeframe_b %} ${launched_raw} {% endcondition %} OR
@@ -331,5 +403,18 @@ view: kickstarter {
   }
 
 
+  # peer comparison: Tabletop vs Rest of Categories
+
+ filter: category_select {
+  type: string
+  suggest_dimension: category }
+
+dimension: category_comparitor {
+  sql:CASE
+      WHEN {% condition category_select %} ${category} {% endcondition %}
+        THEN ${category}
+      ELSE 'Rest of Population'
+    END
+  ;;}
 
 }

@@ -295,18 +295,18 @@ view: collection {
 
   measure: count {
     type: count
-    drill_fields: [originalname, objectname, version_nickname]
+    drill_fields: [originalname, numplays,rating,own_yesno]
   }
 
   measure: sum_plays {
     type: sum
     sql: ${numplays} ;;
-    drill_fields: [originalname]
+    drill_fields: [originalname, numplays,rating,own_yesno]
 
   }  measure: sum_own {
     type: sum
     sql: ${own} ;;
-    drill_fields: [originalname]
+    drill_fields: [originalname, numplays,rating,own_yesno]
   }
 
   set: detail {
