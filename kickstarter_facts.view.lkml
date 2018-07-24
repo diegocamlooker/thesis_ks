@@ -8,7 +8,9 @@ view: kickstarter_facts {
           MAX(kickstarter.usd_pledged_real) as max_pledge,
           MIN(kickstarter.usd_pledged_real) as min_pledge,
           MAX(bgg.geek_rating) as best_game_rating,
-          MIN(bgg.geek_rating) as worst_game_rating
+          MIN(bgg.geek_rating) as worst_game_rating,
+          MIN(kickstarter.backers) as min_backers,
+          MAX(kickstarter.backers) as max_backers
           FROM `lookerdata.diegocam_thesis.kickstarter` as kickstarter,`lookerdata.diegocam_thesis.bgg` as bgg,`lookerdata.diegocam_thesis.collection` as collection
             WHERE kickstarter.category IN ("Tabletop Games") and kickstarter.state IN ("successful")
 
@@ -51,6 +53,16 @@ view: kickstarter_facts {
     sql: ${TABLE}.worst_game_rating ;;
   }
 
+  dimension: min_backers {
+    type: number
+    sql: ${TABLE}.min_backers ;;
+  }
+
+  dimension: max_backers {
+    type: number
+    sql: ${TABLE}.max_backers ;;
+  }
+
   set: detail {
     fields: [
       launched_time,
@@ -58,7 +70,9 @@ view: kickstarter_facts {
       max_pledge,
       min_pledge,
       best_game_rating,
-      worst_game_rating
+      worst_game_rating,
+      min_backers,
+      max_backers
     ]
   }
 }

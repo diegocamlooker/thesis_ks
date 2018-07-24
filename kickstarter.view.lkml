@@ -204,7 +204,7 @@ view: kickstarter {
 
   dimension: overfunded_times_bucket {
     type: tier
-    tiers: [0,10,20,30,40,50,60,70,80,90]
+    tiers: [0,2,5,10,20,50,100]
     value_format_name: decimal_2
     style: integer
     sql:${overfunded_times};;
