@@ -85,13 +85,13 @@ view: kickstarter {
 
   dimension: usd_goal_real {
     type: number
-    value_format: "0.##"
+    value_format: "[>=1000000]$0.00,,\"M\";[>=1000]$0.00,\"K\";$0.00"
     sql: ${TABLE}.usd_goal_real ;;
   }
 
   dimension: usd_pledged {
     type: number
-    value_format: "0.##"
+    value_format: "[>=1000000]$0.00,,\"M\";[>=1000]$0.00,\"K\";$0.00"
     sql: ${TABLE}.usd_pledged ;;
   }
 
@@ -99,14 +99,14 @@ view: kickstarter {
 
   dimension: usd_pledged_real {
     type: number
-    value_format: "0.##"
+    value_format: "[>=1000000]$0.00,,\"M\";[>=1000]$0.00,\"K\";$0.00"
     sql: ${TABLE}.usd_pledged_real ;;
   }
 
   dimension: eur_pledge_real
   {
     type: number
-    value_format: "0.##"
+    value_format: "[>=1000000]$0.00,,\"M\";[>=1000]$0.00,\"K\";$0.00"
     sql: 1.09 * ${usd_pledged_real};;
   }
 
@@ -128,6 +128,14 @@ view: kickstarter {
     style:classic
     sql: ${goal} ;;
   }
+
+
+  dimension: usd_pledged_real_backer {
+    type: number
+    value_format: "[>=1000000]$0.00,,\"M\";[>=1000]$0.00,\"K\";$0.00"
+    sql: ${usd_pledged_real}/${backers} ;;
+  }
+
 
   measure: count {
     type: count
@@ -155,28 +163,28 @@ view: kickstarter {
 
   measure: average_funding_goal {
     type: average
-    value_format_name: usd
+    value_format: "[>=1000000]$0.00,,\"M\";[>=1000]$0.00,\"K\";$0.00"
     sql: ${usd_goal_real} ;;
     drill_fields: [id, name,backers,usd_pledged_real]
   }
 
   measure: average_pledged {
     type: average
-    value_format_name: usd
+    value_format: "[>=1000000]$0.00,,\"M\";[>=1000]$0.00,\"K\";$0.00"
     sql: ${usd_pledged_real} ;;
     drill_fields: [id, name,backers,usd_pledged_real]
   }
 
   measure: sum_usd_pledged {
     type: sum
-    value_format_name: usd_0
+    value_format: "[>=1000000]$0.00,,\"M\";[>=1000]$0.00,\"K\";$0.00"
     sql: ${usd_pledged} ;;
     drill_fields: [id, name,backers,usd_pledged_real]
   }
 
   measure: sum_usd_pledged_real {
     type: sum
-    value_format_name: usd_0
+    value_format: "[>=1000000]$0.00,,\"M\";[>=1000]$0.00,\"K\";$0.00"
     sql: ${usd_pledged_real} ;;
     drill_fields: [id, name,backers,usd_pledged_real]
   }
