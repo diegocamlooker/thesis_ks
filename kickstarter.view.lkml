@@ -19,8 +19,12 @@ view: kickstarter {
 
   dimension: country {
     type: string
-    map_layer_name: countries
-    drill_fields: [name,launched_year]
+    drill_fields: [name,launched_year,country]
+    sql: ${TABLE}.country ;;
+  }
+
+  dimension: country_2 {
+    type: string
     sql: ${TABLE}.country ;;
   }
 
@@ -58,9 +62,15 @@ view: kickstarter {
       week,
       month,
       quarter,
+      week_of_year,
       year
     ]
     sql: ${TABLE}.launched ;;
+  }
+
+  dimension: week_of_year_amm {
+    type: number
+    sql: ${launched_week_of_year} + 1 ;;
   }
 
   dimension: main_category {
@@ -92,6 +102,12 @@ view: kickstarter {
   dimension: usd_pledged {
     type: number
     value_format: "[>=1000000]$0.00,,\"M\";[>=1000]$0.00,\"K\";$0.00"
+    html:
+{% if value < kickstarter.usd_pledged_real._value %}
+<p style="color: red" >{{ value }}</p>
+{% else %}
+{{ value }}
+{% endif %};;
     sql: ${TABLE}.usd_pledged ;;
   }
 
@@ -177,7 +193,7 @@ view: kickstarter {
 
   measure: sum_usd_pledged {
     type: sum
-    value_format: "[>=1000000]$0.00,,\"M\";[>=1000]$0.00,\"K\";$0.00"
+     value_format: "[>=1000000]$0.00,,\"M\";[>=1000]$0.00,\"K\";$0.00"
     sql: ${usd_pledged} ;;
     drill_fields: [id, name,backers,usd_pledged_real]
   }
@@ -424,5 +440,10 @@ dimension: category_comparitor {
       ELSE 'Rest of Population'
     END
   ;;}
+
+#   dimension: is_before_mtd {
+#     type: yesno
+#     sql: EXTRACT(day from ${launched_date}) < EXTRACT(day from CURRENT_DATE);;
+#   }
 
 }
