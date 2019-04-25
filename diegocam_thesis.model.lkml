@@ -2,6 +2,7 @@ connection: "lookerdata_standard_sql"
 
 # include all the views
 include: "*.view"
+include: "*.lkml"
 
 # No need for a datagroup - stale dataset
 # datagroup: diegocam_thesis_default_datagroup {
