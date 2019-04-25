@@ -15,6 +15,11 @@ view: bgg {
     type: number
     sql: ${TABLE}.avg_time ;;
   }
+  dimension: one {
+    type: string
+    sql: 1 ;;
+    html: <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" /> ;;
+  }
 
   dimension: bgg_url {
     type: string
