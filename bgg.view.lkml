@@ -18,7 +18,7 @@ view: bgg {
   dimension: one {
     type: string
     sql: 1 ;;
-    html: <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" /> ;;
+    html: <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" width:100% height:100% /> ;;
   }
 
   dimension: bgg_url {
